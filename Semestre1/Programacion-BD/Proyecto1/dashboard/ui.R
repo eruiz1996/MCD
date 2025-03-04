@@ -3,7 +3,9 @@ library(shiny)
 library(plotly)
 
 ui <- dashboardPage(
-  dashboardHeader(title = "Comparación bubble vs merge sort"),
+  dashboardHeader(
+    title = "Comparación bubble vs merge sort",
+    titleWidth = 350),
   
   dashboardSidebar(
     sidebarMenu(
