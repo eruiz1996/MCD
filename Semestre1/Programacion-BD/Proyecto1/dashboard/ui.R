@@ -3,7 +3,8 @@ library(shinydashboard)
 library(plotly)
 
 ui <- dashboardPage(
-  dashboardHeader(title = "Comparación bubble vs merge sort"),
+  dashboardHeader(title = "Comparación bubble vs merge sort",
+                  titleWidth = 350),
   dashboardSidebar(
     sidebarMenu(
       menuItem("Asignaciones", tabName = "asignaciones", icon = icon("chart-bar")),
@@ -13,7 +14,6 @@ ui <- dashboardPage(
   ),
   dashboardBody(
     tabItems(
-      # Pestaña de Asignaciones con selector de tipo de gráfico
       tabItem(tabName = "asignaciones",
               fluidRow(
                 tabsetPanel(
@@ -22,7 +22,6 @@ ui <- dashboardPage(
                 )
               )
       ),
-      # Pestaña de Intercambios con selector de tipo de gráfico
       tabItem(tabName = "intercambios",
               fluidRow(
                 tabsetPanel(
@@ -31,7 +30,6 @@ ui <- dashboardPage(
                 )
               )
       ),
-      # Pestaña de Comparaciones con sus gráficas y selectInput arriba
       tabItem(tabName = "comparaciones",
               fluidRow(
                 box(title = "Selecciona tamaño del vector", width = 12,

@@ -14,12 +14,7 @@ server <- function(input, output, session) {
   merge_assing_data <- read.csv(merge_assing_csv)
   merge2_data <- read.csv(merge2_csv)
   
-  # Obtener los tamaños únicos para el selectInput
-  observe({
-    updateSelectInput(session, "size_select", choices = unique(bubble_data$size))
-  })
-  
-  # Datos para las gráficas de "Asignaciones"
+  # Datos agregados para gráficos de asignaciones e intercambios
   summary_data_assign <- bubble_data %>%
     group_by(size) %>%
     summarise(avg_comparison_bubble = mean(comparison),
@@ -32,7 +27,6 @@ server <- function(input, output, session) {
       by = "size"
     )
   
-  # Datos para las gráficas de "Intercambios"
   summary_data_swaps <- bubble_data %>%
     group_by(size) %>%
     summarise(avg_swap_bubble = mean(swap)) %>%
@@ -43,7 +37,7 @@ server <- function(input, output, session) {
       by = "size"
     )
   
-  # Gráficas de la pestaña "Asignaciones"
+  # Gráficos de la pestaña "Asignaciones"
   output$plot_assignments <- renderPlotly({
     p <- ggplot(summary_data_assign, aes(x = factor(size))) +
       geom_bar(aes(y = avg_comparison_bubble, fill = "Bubble Sort"), stat = "identity", position = "dodge") +
@@ -62,7 +56,7 @@ server <- function(input, output, session) {
     ggplotly(p)
   })
   
-  # Gráficas de la pestaña "Intercambios"
+  # Gráficos de la pestaña "Intercambios"
   output$plot_swaps <- renderPlotly({
     p <- ggplot(summary_data_swaps, aes(x = factor(size))) +
       geom_bar(aes(y = avg_swap_bubble, fill = "Bubble Sort"), stat = "identity", position = "dodge") +
@@ -81,14 +75,24 @@ server <- function(input, output, session) {
     ggplotly(p)
   })
   
-  # Gráficas de la pestaña "Comparaciones"
+  # Actualizar selectInput con tamaños disponibles
+  observe({
+    updateSelectInput(session, "size_select", choices = unique(bubble_data$size))
+  })
+  
+  # Gráfico de comparaciones con tres barras
   output$plot_comparaciones <- renderPlotly({
     filtered_bubble <- bubble_data %>% filter(size == input$size_select)
-    filtered_merge <- merge_assing_data %>% filter(size == input$size_select)
+    filtered_merge_assign <- merge_assing_data %>% filter(size == input$size_select)
+    filtered_merge2 <- merge2_data %>% filter(size == input$size_select)
     
     plot_data <- data.frame(
-      Algoritmo = c(rep("Bubble Sort", nrow(filtered_bubble)), rep("Merge Sort", nrow(filtered_merge))),
-      Comparaciones = c(filtered_bubble$comparison, filtered_merge$comparison)
+      Algoritmo = c(rep("Bubble Sort", nrow(filtered_bubble)), 
+                    rep("Merge Sort - Asignaciones", nrow(filtered_merge_assign)), 
+                    rep("Merge Sort - Comparaciones", nrow(filtered_merge2))),
+      Comparaciones = c(filtered_bubble$comparison, 
+                        filtered_merge_assign$comparison, 
+                        filtered_merge2$comparison)
     )
     
     p <- ggplot(plot_data, aes(x = Algoritmo, y = Comparaciones, fill = Algoritmo)) +
@@ -99,13 +103,19 @@ server <- function(input, output, session) {
     ggplotly(p)
   })
   
+  # Gráfico de intercambios con tres barras
   output$plot_intercambios <- renderPlotly({
     filtered_bubble <- bubble_data %>% filter(size == input$size_select)
-    filtered_merge <- merge_assing_data %>% filter(size == input$size_select)
+    filtered_merge_assign <- merge_assing_data %>% filter(size == input$size_select)
+    filtered_merge2 <- merge2_data %>% filter(size == input$size_select)
     
     plot_data <- data.frame(
-      Algoritmo = c(rep("Bubble Sort", nrow(filtered_bubble)), rep("Merge Sort", nrow(filtered_merge))),
-      Intercambios = c(filtered_bubble$swap, filtered_merge$swap)
+      Algoritmo = c(rep("Bubble Sort", nrow(filtered_bubble)), 
+                    rep("Merge Sort - Asignaciones", nrow(filtered_merge_assign)), 
+                    rep("Merge Sort - Comparaciones", nrow(filtered_merge2))),
+      Intercambios = c(filtered_bubble$swap, 
+                       filtered_merge_assign$swap, 
+                       filtered_merge2$swap)
     )
     
     p <- ggplot(plot_data, aes(x = Algoritmo, y = Intercambios, fill = Algoritmo)) +
