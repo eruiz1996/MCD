@@ -3,14 +3,15 @@ library(dplyr)
 library(ggplot2)
 library(plotly)
 
-read_path = "C://Users//ed_22//OneDrive//Documentos//Maestría//I-Semestre//Programación//Proyecto1//data//"
+read_path = "C://Users//ed_22//Documents//MCD//Semestre1//Programacion-BD//Proyecto1//data//"
 bubble_csv = paste0(read_path, "bubble.csv")
-merge_csv = paste0(read_path, "merge.csv")
+merge_assing_csv = paste0(read_path, "merge_asignaciones.csv")
+merge2 = paste0(read_path, "merge2.csv")
 
 server <- function(input, output) {
   # Cargar datos
   bubble_data <- read.csv(bubble_csv)
-  merge_data <- read.csv(merge_csv)
+  merge_data <- read.csv(merge_assing_csv)
   
   # Unir y promediar los datos por tamaño
   summary_data <- bubble_data %>%
