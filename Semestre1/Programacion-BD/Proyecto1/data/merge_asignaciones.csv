@@ -1,4 +1,4 @@
-size,comparisons,swaps
+size,comparison,swap
 10,24,34
 10,25,34
 10,25,34
@@ -499,5 +499,3 @@ size,comparisons,swaps
 100,537,672
 100,539,672
 100,539,672
-100,356,672
-100,316,672
