@@ -1,4 +1,5 @@
 library(shiny)
+library(shinydashboard)
 library(dplyr)
 library(ggplot2)
 library(plotly)
@@ -19,7 +20,17 @@ server <- function(input, output, session) {
     updateSelectInput(session, "size_select", choices = unique(bubble_data$size))
   })
   
-  # Gráficos de la pestaña "Asignaciones"
+  # Función auxiliar para gráficos
+  plot_bar_chart <- function(data, metric, title, y_label) {
+    ggplot(data, aes(x = factor(size))) +
+      geom_bar(aes(y = value_bubble, fill = "Bubble Sort"), stat = "identity", position = "dodge") +
+      geom_bar(aes(y = value_merge, fill = "Merge Sort"), stat = "identity", position = "dodge") +
+      labs(title = title, y = y_label, x = "Tamaño del Vector", fill = "Algoritmo") +
+      theme_minimal() +
+      theme(legend.position = "top")
+  }
+  
+  # Gráficos de "Asignaciones"
   output$plot_assignments <- renderPlotly({
     metric <- ifelse(input$assign_metric == "Comparison", "comparison", "swap")
     summary_data <- bubble_data %>%
@@ -32,37 +43,10 @@ server <- function(input, output, session) {
         by = "size"
       )
     
-    p <- ggplot(summary_data, aes(x = factor(size))) +
-      geom_bar(aes(y = value_bubble, fill = "Bubble Sort"), stat = "identity", position = "dodge") +
-      geom_bar(aes(y = value_merge, fill = "Merge Sort"), stat = "identity", position = "dodge") +
-      labs(y = paste("Promedio de", input$assign_metric), x = "Tamaño del Vector", fill = "Algoritmo") +
-      theme_minimal()
-    
-    ggplotly(p)
+    ggplotly(plot_bar_chart(summary_data, metric, "Asignaciones", paste("Promedio de", input$assign_metric)))
   })
   
-  output$plot_assignments_line <- renderPlotly({
-    metric <- ifelse(input$assign_metric == "Comparison", "comparison", "swap")
-    summary_data <- bubble_data %>%
-      group_by(size) %>%
-      summarise(value_bubble = mean(.data[[metric]])) %>%
-      inner_join(
-        merge_assing_data %>%
-          group_by(size) %>%
-          summarise(value_merge = mean(.data[[metric]])),
-        by = "size"
-      )
-    
-    p <- ggplot(summary_data, aes(x = size)) +
-      geom_line(aes(y = value_bubble, color = "Bubble Sort")) +
-      geom_line(aes(y = value_merge, color = "Merge Sort")) +
-      labs(y = paste("Promedio de", input$assign_metric), x = "Tamaño del Vector", color = "Algoritmo") +
-      theme_minimal()
-    
-    ggplotly(p)
-  })
-  
-  # Gráficos de la pestaña "Intercambios"
+  # Gráficos de "Intercambios"
   output$plot_swaps <- renderPlotly({
     metric <- ifelse(input$swap_metric == "Comparison", "comparison", "swap")
     summary_data <- bubble_data %>%
@@ -75,34 +59,7 @@ server <- function(input, output, session) {
         by = "size"
       )
     
-    p <- ggplot(summary_data, aes(x = factor(size))) +
-      geom_bar(aes(y = value_bubble, fill = "Bubble Sort"), stat = "identity", position = "dodge") +
-      geom_bar(aes(y = value_merge, fill = "Merge Sort"), stat = "identity", position = "dodge") +
-      labs(y = paste("Promedio de", input$swap_metric), x = "Tamaño del Vector", fill = "Algoritmo") +
-      theme_minimal()
-    
-    ggplotly(p)
-  })
-  
-  output$plot_swaps_line <- renderPlotly({
-    metric <- ifelse(input$swap_metric == "Comparison", "comparison", "swap")
-    summary_data <- bubble_data %>%
-      group_by(size) %>%
-      summarise(value_bubble = mean(.data[[metric]])) %>%
-      inner_join(
-        merge2_data %>%
-          group_by(size) %>%
-          summarise(value_merge = mean(.data[[metric]])),
-        by = "size"
-      )
-    
-    p <- ggplot(summary_data, aes(x = size)) +
-      geom_line(aes(y = value_bubble, color = "Bubble Sort")) +
-      geom_line(aes(y = value_merge, color = "Merge Sort")) +
-      labs(y = paste("Promedio de", input$swap_metric), x = "Tamaño del Vector", color = "Algoritmo") +
-      theme_minimal()
-    
-    ggplotly(p)
+    ggplotly(plot_bar_chart(summary_data, metric, "Intercambios", paste("Promedio de", input$swap_metric)))
   })
   
   # Gráficos de la pestaña "Comparaciones"
@@ -129,7 +86,6 @@ server <- function(input, output, session) {
     ggplotly(p)
   })
   
-  # Gráfico de intercambios con tres barras
   output$plot_intercambios <- renderPlotly({
     filtered_bubble <- bubble_data %>% filter(size == input$size_select)
     filtered_merge_assign <- merge_assing_data %>% filter(size == input$size_select)
