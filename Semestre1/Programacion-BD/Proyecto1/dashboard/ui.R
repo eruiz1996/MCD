@@ -3,41 +3,44 @@ library(shiny)
 library(plotly)
 
 ui <- dashboardPage(
-  dashboardHeader(
-    title = "Comparación bubble vs merge sort",
-    titleWidth = 350),
+  dashboardHeader(title = "Comparación Bubble vs Merge Sort", titleWidth = 350),
   
   dashboardSidebar(
     sidebarMenu(
-      menuItem("Gráficas", tabName = "graficas", icon = icon("chart-line")),
-      menuItem("Métricas", tabName = "metricas", icon = icon("table"))
+      menuItem("Asignaciones", tabName = "asignaciones", icon = icon("chart-line")),
+      menuItem("Intercambios", tabName = "intercambios", icon = icon("chart-line")),
+      menuItem("Comparaciones", tabName = "comparaciones", icon = icon("bar-chart"))
     )
   ),
   
   dashboardBody(
     tabItems(
-      # Sección de gráficas
-      tabItem(tabName = "graficas",
+      # Asignaciones
+      tabItem(tabName = "asignaciones",
               fluidRow(
-                box(title = "Selecciona rango de tamaño", width = 12,
-                    sliderInput("size_range", "Tamaño del vector:",
-                                min = 10, max = 100, value = c(10, 100), step = 10)
-                )
-              ),
-              fluidRow(
-                box(title = "Comparaciones por tamaño", width = 6, plotlyOutput("plot_comparisons")),
-                box(title = "Intercambios por tamaño", width = 6, plotlyOutput("plot_swaps"))
-              ),
-              fluidRow(
-                box(title = "Distribución de comparaciones", width = 6, plotOutput("hist_comparisons")),
-                box(title = "Distribución de intercambios", width = 6, plotOutput("hist_swaps"))
+                box(title = "Comparaciones por tamaño", width = 6, plotlyOutput("plot_comparisons_asign")),
+                box(title = "Intercambios por tamaño", width = 6, plotlyOutput("plot_swaps_asign"))
               )
       ),
       
-      # Sección de métricas
-      tabItem(tabName = "metricas",
+      # Intercambios
+      tabItem(tabName = "intercambios",
               fluidRow(
-                box(title = "Métricas Comparativas", width = 12, tableOutput("summary_table"))
+                box(title = "Comparaciones por tamaño", width = 6, plotlyOutput("plot_comparisons_inter")),
+                box(title = "Intercambios por tamaño", width = 6, plotlyOutput("plot_swaps_inter"))
+              )
+      ),
+      
+      # Comparaciones
+      tabItem(tabName = "comparaciones",
+              fluidRow(
+                box(title = "Selecciona tamaño", width = 12,
+                    selectInput("selected_size", "Tamaño del vector:", choices = NULL)
+                )
+              ),
+              fluidRow(
+                box(title = "Comparaciones", width = 6, plotlyOutput("bar_comparisons")),
+                box(title = "Intercambios", width = 6, plotlyOutput("bar_swaps"))
               )
       )
     )
