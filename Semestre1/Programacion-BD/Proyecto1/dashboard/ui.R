@@ -1,45 +1,38 @@
 library(shiny)
-library(shinydashboard)
 library(plotly)
 
-ui <- dashboardPage(
-  dashboardHeader(title = "Comparación bubble vs merge sort",
-                  titleWidth = 350),
-  dashboardSidebar(
-    sidebarMenu(
-      menuItem("Asignaciones", tabName = "asignaciones", icon = icon("chart-bar")),
-      menuItem("Intercambios", tabName = "intercambios", icon = icon("chart-bar")),
-      menuItem("Comparaciones", tabName = "comparaciones", icon = icon("table"))
-    )
-  ),
-  dashboardBody(
-    tabItems(
-      tabItem(tabName = "asignaciones",
-              fluidRow(
-                tabsetPanel(
-                  tabPanel("Barras", plotlyOutput("plot_assignments")),
-                  tabPanel("Líneas", plotlyOutput("plot_assignments_line"))
-                )
-              )
-      ),
-      tabItem(tabName = "intercambios",
-              fluidRow(
-                tabsetPanel(
-                  tabPanel("Barras", plotlyOutput("plot_swaps")),
-                  tabPanel("Líneas", plotlyOutput("plot_swaps_line"))
-                )
-              )
-      ),
-      tabItem(tabName = "comparaciones",
-              fluidRow(
-                box(title = "Selecciona tamaño del vector", width = 12,
-                    selectInput("size_select", "Tamaño del vector:", choices = NULL))
-              ),
-              fluidRow(
-                box(title = "Comparaciones", width = 6, plotlyOutput("plot_comparaciones")),
-                box(title = "Intercambios", width = 6, plotlyOutput("plot_intercambios"))
-              )
-      )
-    )
-  )
+ui <- navbarPage("Análisis de Algoritmos",
+                 tabPanel("Asignaciones",
+                          sidebarLayout(
+                            sidebarPanel(
+                              radioButtons("assign_metric", "Métrica:", choices = c("Comparison", "Swap"), selected = "Comparison")
+                            ),
+                            mainPanel(
+                              plotlyOutput("plot_assignments"),
+                              plotlyOutput("plot_assignments_line")
+                            )
+                          )
+                 ),
+                 tabPanel("Intercambios",
+                          sidebarLayout(
+                            sidebarPanel(
+                              radioButtons("swap_metric", "Métrica:", choices = c("Comparison", "Swap"), selected = "Comparison")
+                            ),
+                            mainPanel(
+                              plotlyOutput("plot_swaps"),
+                              plotlyOutput("plot_swaps_line")
+                            )
+                          )
+                 ),
+                 tabPanel("Comparaciones",
+                          sidebarLayout(
+                            sidebarPanel(
+                              selectInput("size_select", "Selecciona tamaño del vector:", choices = NULL)
+                            ),
+                            mainPanel(
+                              plotlyOutput("plot_comparaciones"),
+                              plotlyOutput("plot_intercambios")
+                            )
+                          )
+                 )
 )
