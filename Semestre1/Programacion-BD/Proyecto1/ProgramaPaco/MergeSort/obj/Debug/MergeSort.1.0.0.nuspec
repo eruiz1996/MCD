@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>MergeSort</id>
+    <version>1.0.0</version>
+    <authors>MergeSort</authors>
+    <description>Package Description</description>
+    <dependencies>
+      <group targetFramework="net6.0" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="D:\Maestria\1erSemestre\ProgramacionAvanzada\4. Ordenacion por insercion y proyecto\MergeSort\MergeSort\bin\Debug\net6.0\MergeSort.runtimeconfig.json" target="lib\net6.0\MergeSort.runtimeconfig.json" />
+    <file src="D:\Maestria\1erSemestre\ProgramacionAvanzada\4. Ordenacion por insercion y proyecto\MergeSort\MergeSort\bin\Debug\net6.0\MergeSort.dll" target="lib\net6.0\MergeSort.dll" />
+  </files>
+</package>

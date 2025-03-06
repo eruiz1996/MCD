@@ -1,0 +1,15 @@
+D:\Maestria\1erSemestre\ProgramacionAvanzada\4. Ordenacion por insercion y proyecto\MergeSort\MergeSort\bin\Debug\net6.0\MergeSort.exe
+D:\Maestria\1erSemestre\ProgramacionAvanzada\4. Ordenacion por insercion y proyecto\MergeSort\MergeSort\bin\Debug\net6.0\MergeSort.deps.json
+D:\Maestria\1erSemestre\ProgramacionAvanzada\4. Ordenacion por insercion y proyecto\MergeSort\MergeSort\bin\Debug\net6.0\MergeSort.runtimeconfig.json
+D:\Maestria\1erSemestre\ProgramacionAvanzada\4. Ordenacion por insercion y proyecto\MergeSort\MergeSort\bin\Debug\net6.0\MergeSort.dll
+D:\Maestria\1erSemestre\ProgramacionAvanzada\4. Ordenacion por insercion y proyecto\MergeSort\MergeSort\bin\Debug\net6.0\ref\MergeSort.dll
+D:\Maestria\1erSemestre\ProgramacionAvanzada\4. Ordenacion por insercion y proyecto\MergeSort\MergeSort\bin\Debug\net6.0\MergeSort.pdb
+D:\Maestria\1erSemestre\ProgramacionAvanzada\4. Ordenacion por insercion y proyecto\MergeSort\MergeSort\obj\Debug\net6.0\MergeSort.csproj.AssemblyReference.cache
+D:\Maestria\1erSemestre\ProgramacionAvanzada\4. Ordenacion por insercion y proyecto\MergeSort\MergeSort\obj\Debug\net6.0\MergeSort.GeneratedMSBuildEditorConfig.editorconfig
+D:\Maestria\1erSemestre\ProgramacionAvanzada\4. Ordenacion por insercion y proyecto\MergeSort\MergeSort\obj\Debug\net6.0\MergeSort.AssemblyInfoInputs.cache
+D:\Maestria\1erSemestre\ProgramacionAvanzada\4. Ordenacion por insercion y proyecto\MergeSort\MergeSort\obj\Debug\net6.0\MergeSort.AssemblyInfo.cs
+D:\Maestria\1erSemestre\ProgramacionAvanzada\4. Ordenacion por insercion y proyecto\MergeSort\MergeSort\obj\Debug\net6.0\MergeSort.csproj.CoreCompileInputs.cache
+D:\Maestria\1erSemestre\ProgramacionAvanzada\4. Ordenacion por insercion y proyecto\MergeSort\MergeSort\obj\Debug\net6.0\MergeSort.dll
+D:\Maestria\1erSemestre\ProgramacionAvanzada\4. Ordenacion por insercion y proyecto\MergeSort\MergeSort\obj\Debug\net6.0\ref\MergeSort.dll
+D:\Maestria\1erSemestre\ProgramacionAvanzada\4. Ordenacion por insercion y proyecto\MergeSort\MergeSort\obj\Debug\net6.0\MergeSort.pdb
+D:\Maestria\1erSemestre\ProgramacionAvanzada\4. Ordenacion por insercion y proyecto\MergeSort\MergeSort\obj\Debug\net6.0\MergeSort.genruntimeconfig.cache
